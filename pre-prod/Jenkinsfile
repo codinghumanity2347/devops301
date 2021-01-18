@@ -4,11 +4,11 @@ node {
     def buildInfo = Artifactory.newBuildInfo() 
 
 // Project Dir
-    def project_path = "01-Jenkins/petclinic-code"
+    def project_path = "spring-petclinic"
 
 
 stage('GitCheckOut') {
-git branch: 'main',  url: 'https://github.com/amitvashisttech/devops301-mindtree-09-Jan-2021.git'
+git branch: 'pre-prod',  url: 'https://github.com/amitvashisttech/devops301-mindtree-09-Jan-2021.git'
 }
 
 
