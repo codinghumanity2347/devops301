@@ -4,7 +4,7 @@ node {
     def buildInfo = Artifactory.newBuildInfo() 
 
 // Project Dir
-    def project_path = "spring-petclinic"
+    def project_path = "petclinic-code"
 
 
 stage('GitCheckOut') {
