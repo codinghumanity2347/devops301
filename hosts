@@ -1,4 +1,1 @@
-[default]
-127.0.0.1
-ansible_ssh_user=devops
-ansible_ssh_pass=Mindtree123$
+
