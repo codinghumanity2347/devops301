@@ -47,6 +47,13 @@ stage('Build Managment') {
 stage('Publish build info') {
   server.publishBuildInfo buildInfo
 }
+stage("build & SonarQube analysis") {
+          
+              withSonarQubeEnv('sonar-01') {
+                 sh 'mvn  sonar:sonar'
+              }
+          
+      }
 
 stage('Deployment - PreProd') {
 sh 'docker-compose up -d --build'
