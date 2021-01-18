@@ -51,10 +51,12 @@ stage('Publish build info') {
 stage('Deployment - PreProd') {
 sh 'docker-compose up -d --build'
 }
-}
-
-stage('Deployment - Stage'){
+	
+	stage('Deployment - Stage'){
 deploy adapters: [tomcat8(credentialsId: 'tomcat-credentials', path: '', url: 'http://mueoz30332dns.eastus2.cloudapp.azure.com:8080/')], contextPath: 'petclinic', onFailure: false, war: 'target/petclinic.war'
 }
+}
+
+
  
 }
