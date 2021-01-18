@@ -8,7 +8,7 @@ node {
 
 
 stage('GitCheckOut') {
-git branch: 'pre-prod',  url: 'https://github.com/amitvashisttech/devops301-mindtree-09-Jan-2021.git'
+git branch: 'pre-prod',  url: 'https://github.com/shreya246/devops301.git'
 }
 
 
@@ -59,9 +59,7 @@ stage('Deployment - PreProd') {
 sh 'docker-compose up -d --build'
 }
 	
-	stage('Deployment - Stage'){
-deploy adapters: [tomcat8(credentialsId: 'tomcat-credentials', path: '', url: 'http://mueoz30332dns.eastus2.cloudapp.azure.com:8080/')], contextPath: 'petclinic', onFailure: false, war: 'target/petclinic.war'
-}
+	
 }
 
 
