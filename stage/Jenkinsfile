@@ -41,7 +41,7 @@ deploy adapters: [tomcat8(credentialsId: 'tomcat-credentials', path: '', url: 'h
 }
 	}
 	catch(err){
-		notify("Error ${err}')
+		notify('Error ${err}')
 		         currentBuild.result = 'FAILURE'
 	}
 
