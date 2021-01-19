@@ -72,7 +72,7 @@ notify('Completed the pre-production with docker')
 	}
 }
 def notify(status){
-	emailtext(
+	emailext(
 		to: 'shreyapnseja@gmail.com',
 		subject: "${status} :JOB '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
 		 body:"""<p>${status}: :JOB '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
