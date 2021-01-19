@@ -1,5 +1,8 @@
 node {
 // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
+	
+	notify('Stage started')
+	try{
     def server = Artifactory.server "01"
     def buildInfo = Artifactory.newBuildInfo() 
 
@@ -36,7 +39,20 @@ stage('Publish build info') {
 deploy adapters: [tomcat8(credentialsId: 'tomcat-credentials', path: '', url: 'http://mueoz30332dns.eastus2.cloudapp.azure.com:8080/')], contextPath: 'petclinic', onFailure: false, war: 'files/petclinic.war'
 }
 }
-
+	}
+	catch(err){
+		notify("Error ${err}')
+		         currentBuild.result = 'FAILURE'
+	}
 
  
+}
+		       
+		       def notify(status){
+    emailext(
+    to: "shreyapnseja@gmail.com",
+    subject: "${status} :JOB '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+    body:"""<p>${status}: :JOB '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+            <p>Check Console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+    )
 }
