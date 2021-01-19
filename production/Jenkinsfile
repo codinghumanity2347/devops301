@@ -38,7 +38,7 @@ stage('Getting Ready for Ansible Deploy'){
 stage('Deployment - Production') {
 sh 'ansible-playbook petclinic.yaml'
 }
-	
+	notify("Completed")
 	}
 	catch(err){
 		notify("Error ${err}")
