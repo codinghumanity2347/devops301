@@ -1,3 +1,9 @@
+terraform {
+  backend "local" {
+     path = "/var/tmp/terraform-local-backend/terraform.tfstate"
+  }
+}
+
 provider "aws" {
    region = "us-east-2"
    version = ">=3.7,<=3.11"
