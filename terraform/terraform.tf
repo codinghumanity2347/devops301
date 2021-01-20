@@ -31,10 +31,10 @@ data "aws_ami" "myami" {
 
 
 resource "aws_instance" "dev-app" {
-  ami               = data.aws_ami.myami.id
-  availability_zone = data.aws_availability_zones.zones_east.names[count.index]
+  ami               = "ami-0ebc8f6f580a04647"
+ # availability_zone = data.aws_availability_zones.zones_east.names[count.index]
   instance_type     = "t2.micro"
-  count             = 1
+#  count             = 1
   key_name          = var.key_name
   vpc_security_group_ids = [var.sg_id] 
  
@@ -48,7 +48,7 @@ resource "aws_instance" "dev-app" {
 
   connection {
     type = "ssh"
-    user = "ec2-user"
+    user = "ubuntu"
     private_key = file(var.pvt_key)
     host   = self.public_ip
    }
@@ -71,7 +71,7 @@ resource "null_resource" "ansible-main" {
         echo "[jenkins-ci]"| tee -a jenkins-ci.ini;
         export ANSIBLE_HOST_KEY_CHECKING=False;
         echo "${aws_instance.dev-app.public_ip}" | tee -a jenkins-ci.ini;
-        ansible-playbook  --key-file=${var.pvt_key} -i jenkins-ci.ini -u ec2-user ../tomcat/tomcat.yaml  -v
+        ansible-playbook  --key-file=${var.pvt_key} -i jenkins-ci.ini -u ubuntu ../tomcat/tomcat.yaml  -v
       EOT
   }
   depends_on = [aws_instance.dev-app]
