@@ -56,12 +56,25 @@ resource "aws_instance" "dev-app" {
 
   provisioner "remote-exec" {
      inline = [
-       "sudo yum install httpd -y",
-       "sudo systemctl start httpd"
+       "sudo apt-get update",
+       "sudo apt-get install python sshpass -y"
       ]
 
 
   }
+}
+
+resource "null_resource" "ansible-main" {
+  provisioner "local-exec" {
+    command = <<EOT
+           > jenkins-ci.ini;
+        echo "[jenkins-ci]"| tee -a jenkins-ci.ini;
+        export ANSIBLE_HOST_KEY_CHECKING=False;
+        echo "${aws_instance.dev-app.public_ip}" | tee -a jenkins-ci.ini;
+        ansible-playbook  --key-file=${var.pvt_key} -i jenkins-ci.ini -u ec2-user ../tomcat/tomcat.yaml  -v
+      EOT
+  }
+  depends_on = [aws_instance.dev-app]
 }
 
 
