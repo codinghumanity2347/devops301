@@ -1,6 +1,6 @@
 ---
 
-- hosts: tomcat
+- hosts: 127.0.0.1
   name: "My Tomcat App Server Deployment"
   become: yes 
   vars: 
@@ -24,7 +24,7 @@
     file: path={{doc_tomcat_webapps}}/tomcat state=directory
 
   - name: Deploy Jenkins Index Page
-    copy: src=files/jenkins.html dest={{doc_tomcat_webapps}}/index.html
+    copy: src=files/index.html dest={{doc_tomcat_webapps}}/index.html
 
   - name: Start Tomcat App Server
     shell: "nohup sh /opt/SP/apps/tomcat/bin/catalina.sh start"
