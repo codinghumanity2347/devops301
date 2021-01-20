@@ -9,5 +9,5 @@ variable "pvt_key" {
 
 
 variable "sg_id" {
-  default = "sg-02b2c644d114edbf9"
+  default = "sg-0ad7599840e1c8348"
 }
