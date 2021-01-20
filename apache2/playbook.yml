@@ -1,0 +1,19 @@
+---
+- hosts: 127.0.0.1
+  name: Webserver Startup
+  become: yes
+  tasks:
+  - name: Intsall apache server
+    apt: 
+      pkg: apache2
+      state: present
+
+  - name: Start Apache2 service
+    service:
+       name: apache2
+       state: started
+
+  - name: Deploy web page
+    copy:
+       src: files/index.html
+       dest: /var/www/html/
