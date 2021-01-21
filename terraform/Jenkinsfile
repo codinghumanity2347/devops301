@@ -4,7 +4,7 @@ node {
 // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
     def server = Artifactory.server "01"
     def buildInfo = Artifactory.newBuildInfo() 
-
+def directory_terraform= "terraform"
 
 		
 stage('GitCheckOut') {
@@ -19,13 +19,14 @@ stage('Getting Ready for Ansible Deploy'){
 
 
 
-
+		dir(directory_terraform){
 stage('Deployment - Terraform') {
-	sh 'cd terraform'
+	
 sh 'terraform init'
 sh 'terraform plan'
 sh 'terraform apply --auto-approve'
 }
+		}
 		
 	notify("Completed")
 	}
