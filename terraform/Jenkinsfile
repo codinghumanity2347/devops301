@@ -6,8 +6,7 @@ node {
     def buildInfo = Artifactory.newBuildInfo() 
 
 
-
-
+		
 stage('GitCheckOut') {
 git branch: 'terraform',  url: 'https://github.com/shreya246/devops301.git'
 }
@@ -22,10 +21,12 @@ stage('Getting Ready for Ansible Deploy'){
 
 
 stage('Deployment - Terraform') {
+	sh 'cd terraform'
 sh 'terraform init'
 sh 'terraform plan'
 sh 'terraform apply --auto-approve'
 }
+		
 	notify("Completed")
 	}
 	catch(err){
