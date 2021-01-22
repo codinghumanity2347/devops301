@@ -19,21 +19,18 @@ git branch: 'stage',  url: 'https://github.com/shreya246/devops301.git'
 dir(project_path){
 
 stage('Build Managment') {
-      def uploadSpec = """{
+      def downloadSpec = """{
 	 "files": [
 	{
 	"pattern": "petclinic-war/*.war",
-	"target": "/files/"
+	"target": "files/"
         }
 	]
 	}"""
-	server.upload spec: uploadSpec
+	server.download spec: downloadSpec
  }
 
 
-stage('Publish build info') {
-  server.publishBuildInfo buildInfo
-}
 
 	stage('Deployment - Stage'){
 deploy adapters: [tomcat8(credentialsId: 'tomcat-credentials', path: '', url: 'http://mueoz30332dns.eastus2.cloudapp.azure.com:8080/')], contextPath: 'petclinic', onFailure: false, war: 'files/petclinic.war'
