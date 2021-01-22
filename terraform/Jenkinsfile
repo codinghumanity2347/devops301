@@ -10,6 +10,19 @@ def directory_terraform= "terraform"
 stage('GitCheckOut') {
 git branch: 'terraform',  url: 'https://github.com/shreya246/devops301.git'
 }
+		
+		
+		stage('Build Managment') {
+      def downloadSpec = """{
+	 "files": [
+	{
+	"pattern": "petclinic-war/*.war",
+	"target": "tomcat/tomcat/files/"
+        }
+	]
+	}"""
+	server.download spec: downloadSpec
+ }
 
 
 stage('Getting Ready for Ansible Deploy'){
