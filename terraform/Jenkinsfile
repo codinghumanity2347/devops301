@@ -24,7 +24,6 @@ git branch: 'terraform',  url: 'https://github.com/shreya246/devops301.git'
 	server.download spec: downloadSpec
  }
 
-
 stage('Getting Ready for Ansible Deploy'){
    sh "echo \'<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>\'  > tomcat/tomcat/files/index.html"
   }
