@@ -1,23 +1,36 @@
 provider "azurerm" {
-  version = "=1.5.0"
+  version = ">=1.2.7"
+  features {}
 }
-
-resource "azurerm_resource_group" "k8s" {
+variable "client_id"{
+  type = string
+}
+variable "client_secret"{
+  type = string
+}
+resource "azurerm_resource_group" "gitops" {
   name     = "gitops-team1"
   location = "East US 2"
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
-  name                = "automated-cluster"
+  name                = "quick-learning-with-tf"
   location            = "East US 2"
-  resource_group_name = "gitops"
+  resource_group_name = "gitops-team1"
+  dns_prefix          = "gitops-qlwt"
 
-  
-
-  agent_pool_profile {
-    name            = "default"
-    count           = 1
-    vm_size         = "Standard_DS2_v2"
-    os_type         = "Linux"
-    os_disk_size_gb = 7
+  role_based_access_control{
+    enabled        = false
+}
+  service_principal {
+    client_id     = var.client_id
+    client_secret = var.client_secret
   }
+
+  default_node_pool {
+    name            = "default"
+    vm_size         = "standard_b2s"
+    node_count      = 1
+    os_disk_size_gb = 30
+  }
+}
